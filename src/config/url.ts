@@ -1,0 +1,1 @@
+export const BASE_DEV_URL: string="http://localhost:5000";

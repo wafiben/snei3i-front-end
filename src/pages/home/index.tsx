@@ -1,0 +1,56 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { AppDispatch } from "../../store/store";
+import { getAllUsers } from "../../store/users/actions";
+import { GlobalState } from "../../types/globalState";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { UsersStatistics } from "../../components/static-area";
+import { MenuBar } from "../../components/menu-bar";
+import { UserCard } from "../../components/user";
+
+const Home = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { users, loading } = useSelector(
+    (state: GlobalState) => state.userReducer
+  );
+  console.log(users);
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+  if (loading) {
+    return (
+      <div className="flex justify-content-center">
+        <ProgressSpinner />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/*
+       */}
+      <UsersStatistics />
+      <MenuBar />
+
+      <div className="flex flex-wrap">
+    
+        {/* 		{(employees&&employees.length!==0)&&
+					employees
+						.filter((elt) =>
+							elt.name.toLowerCase().includes(letter.toLocaleLowerCase())
+						)
+						.map((employee) => <EmployeeCard employee={employee} />)} */}
+                        {users.map((elt)=><UserCard user={{
+                            id: "",
+                            firstName: "",
+                            lastName: "",
+                            gender: "",
+                            age: 0,
+                            city: ""
+                        }}/>)}
+      </div>
+    </>
+  );
+};
+export default Home;
