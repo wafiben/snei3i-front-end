@@ -1,16 +1,20 @@
 import { Menubar } from "primereact/menubar";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar: React.FC = () => {
-  /* const navigate=useNavigate() */
+const navigate=useNavigate() 
   const handleClick = () => {
-    console.log("ddddddddddd");
-    /* navigate('/employees') */
+    navigate('/users')
   };
   const items = [
     {
       label: "Home",
       icon: "pi pi-fw pi-power-off",
-      command: handleClick,
+      command: ()=>navigate('/users'),
+    },
+    {
+      label: "ADD user",
+      command: ()=>navigate('/add_user'),
     },
   ];
 

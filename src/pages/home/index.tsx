@@ -11,7 +11,7 @@ import { UserCard } from "../../components/user";
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { users, loading } = useSelector(
+  const { users, loading, letter,age } = useSelector(
     (state: GlobalState) => state.userReducer
   );
   console.log(users);
@@ -28,27 +28,18 @@ const Home = () => {
 
   return (
     <>
-      {/*
-       */}
       <UsersStatistics />
       <MenuBar />
-
       <div className="flex flex-wrap">
-    
-        {/* 		{(employees&&employees.length!==0)&&
-					employees
-						.filter((elt) =>
-							elt.name.toLowerCase().includes(letter.toLocaleLowerCase())
-						)
-						.map((employee) => <EmployeeCard employee={employee} />)} */}
-                        {users.map((elt)=><UserCard user={{
-                            id: "",
-                            firstName: "",
-                            lastName: "",
-                            gender: "",
-                            age: 0,
-                            city: ""
-                        }}/>)}
+        {users.length !== 0 &&
+          users
+            .filter((user) => {
+              const firstNameMatches = user.firstName.toLowerCase().includes(letter.toLowerCase());
+              const lastNameMatches = user.lastName.toLowerCase().includes(letter.toLowerCase());
+              const isAgeLessThanGlobalAge = user.age <= age;
+              return (firstNameMatches || lastNameMatches) && isAgeLessThanGlobalAge;
+            })
+            .map((user) => <UserCard key={user.id} user={user} />)}
       </div>
     </>
   );

@@ -3,10 +3,15 @@ import { User } from "../../types/user";
 import { handleRequest } from "../http";
 
 export const getUsers = async () =>
-  await handleRequest<User[]>("https://jsonplaceholder.typicode.com/users" , "GET");
+  await handleRequest<any>(`${BASE_DEV_URL}users` , "GET");
 
 export const getSingleUser = async (id: string) =>
-  await handleRequest<User[]>(`${BASE_DEV_URL}/users/${id}`, "GET");
+  await handleRequest<any>(`${BASE_DEV_URL}users/${id}`, "GET");
+
+  export const deleteSingleUser = async (id: string) =>
+  await handleRequest<void>(`${BASE_DEV_URL}delete_user/${id}`, "DELETE");
+
+  
   /* `${BASE_DEV_URL}/users` */
 /*   export const addUser = async () =>
   await handleRequest<User[]>(`${BASE_DEV_URL}/users/${id}`, "POST");

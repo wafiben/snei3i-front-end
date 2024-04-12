@@ -1,1 +1,1 @@
-export const BASE_DEV_URL: string="http://localhost:5000";
+export const BASE_DEV_URL: string="http://127.0.0.1:8000/";
