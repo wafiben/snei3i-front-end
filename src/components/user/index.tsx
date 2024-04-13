@@ -30,9 +30,7 @@ export const UserCard: React.FC<PropsComponent>=({user}) => {
 			>
 				<div className="flex">
 					<div className="m-0">
-						
 						<div>Age {user.age}</div>
-						<div>birthday Date:ddddddddddd</div>
 						<div>
 							City:
 							{user.city}

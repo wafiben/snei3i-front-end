@@ -1,24 +1,20 @@
 import { BASE_DEV_URL } from "../../config/url";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/userDto";
 import { handleRequest } from "../http";
 
 export const getUsers = async () =>
-  await handleRequest<any>(`${BASE_DEV_URL}users` , "GET");
+  await handleRequest<any>(`${BASE_DEV_URL}users`, "GET");
 
 export const getSingleUser = async (id: string) =>
   await handleRequest<any>(`${BASE_DEV_URL}users/${id}`, "GET");
 
-  export const deleteSingleUser = async (id: string) =>
+export const deleteSingleUser = async (id: string) =>
   await handleRequest<void>(`${BASE_DEV_URL}delete_user/${id}`, "DELETE");
 
-  
-  /* `${BASE_DEV_URL}/users` */
-/*   export const addUser = async () =>
-  await handleRequest<User[]>(`${BASE_DEV_URL}/users/${id}`, "POST");
- */
+export const addUser = async (data: UserDto) =>
+  await handleRequest<void>(`${BASE_DEV_URL}create_user`, "POST", data);
 
-// export const getSingleEmployeeApi = async (id: string) =>
-//   await handleRequest<Employee>(`${BASE_DEV_URL}/employees/${id}`, "GET");
+export const modifyUser = async (id: string, data: UserDto) =>
+  await handleRequest<void>(`${BASE_DEV_URL}modify_user/${id}`, "PUT", data);
 
-// export const getProjectsApi = async () =>
-//   await handleRequest<Project[]>(`${BASE_DEV_URL}/projects`, "GET");
+

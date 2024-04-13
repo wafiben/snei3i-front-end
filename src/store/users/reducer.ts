@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  createUser,
+  createUserLoading,
   deleteUser,
   deleteUserLoading,
   getAllUsers,
   getAllUsersLoading,
   getOneUser,
   getSingleUserLoading,
+  modifySingleUser,
+  modifyUserLoading,
   searchUsersAge,
   searchUsersWithFirstNameOrLastName,
 } from "./actions";
@@ -16,7 +20,7 @@ const initialState: UserState = {
   loading: false,
   letter: "",
   age: 100,
-  user:null
+  user: null,
 };
 export const userSlice = createSlice({
   name: "user",
@@ -74,6 +78,38 @@ export const userSlice = createSlice({
     });
     builder.addCase(
       deleteUserLoading,
+      (state: any, action: PayloadAction<boolean>) => {
+        return {
+          ...state,
+          loading: true,
+        };
+      }
+    );
+
+    builder.addCase(createUser.fulfilled, (state: any, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    });
+    builder.addCase(
+      createUserLoading,
+      (state: any, action: PayloadAction<boolean>) => {
+        return {
+          ...state,
+          loading: true,
+        };
+      }
+    );
+
+    builder.addCase(modifySingleUser.fulfilled, (state: any, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    });
+    builder.addCase(
+      modifyUserLoading,
       (state: any, action: PayloadAction<boolean>) => {
         return {
           ...state,

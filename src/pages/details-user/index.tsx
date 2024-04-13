@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppDispatch } from "../../store/store";
 import { useParams } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
-import { Divider } from "primereact/divider";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { GlobalState } from "../../types/globalState";
 import { deleteUser, getOneUser } from "../../store/users/actions";
 import { calculateBirthYear } from "../../utils/birthdayYear";
+import { ModifyUserModal } from "../../components/user-modify-modal";
 
 export const DetailsUser: React.FC = () => {
+  const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const { user, loading } = useSelector(
@@ -25,7 +26,8 @@ export const DetailsUser: React.FC = () => {
     if (id) {
       dispatch(getOneUser(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id,visible]);
+
   if (loading) {
     return (
       <div className="flex justify-content-center">
@@ -33,10 +35,17 @@ export const DetailsUser: React.FC = () => {
       </div>
     );
   }
-  const handleDelete =async ()  => {
-     await dispatch(deleteUser(String(id))); 
-     navigate('/users')
+  const handleDelete = async () => {
+    await dispatch(deleteUser(String(id)));
+    navigate("/users");
   };
+
+  const handleShow = () => {
+    setVisible(true);
+  };
+  function handleClose(): void {
+    setVisible(false);
+  }
 
   return (
     <div className="flex justify-content-center">
@@ -71,7 +80,9 @@ export const DetailsUser: React.FC = () => {
               onClick={() => navigate("/users")}
             />
           </div>
+          <Button label="Modify User" severity="info" onClick={handleShow} />
         </Card>
+        <ModifyUserModal visible={visible} handleClose={handleClose} user={user}/>
       </div>
     </div>
   );
