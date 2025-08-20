@@ -9,7 +9,7 @@ import { MenuBar } from "../../components/menu-bar";
 import { UserCard } from "../../components/user";
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>();
+/*   const dispatch = useDispatch<AppDispatch>();
 
   const { users, loading, letter, age } = useSelector(
     (state: GlobalState) => state.userReducer
@@ -24,11 +24,12 @@ const Home = () => {
         <ProgressSpinner />
       </div>
     );
-  }
+  } */
 
   return (
     <>
-      <UsersStatistics />
+    <h1>hello</h1>
+{/*       <UsersStatistics />
       <MenuBar />
       <div className="flex flex-wrap">
         {users.length !== 0 &&
@@ -46,7 +47,7 @@ const Home = () => {
               );
             })
             .map((user) => <UserCard key={user.id} user={user} />)}
-      </div>
+      </div> */}
     </>
   );
 };

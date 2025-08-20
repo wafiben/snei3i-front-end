@@ -18,3 +18,7 @@ export const modifyUser = async (id: string, data: UserDto) =>
   await handleRequest<void>(`${BASE_DEV_URL}modify_user/${id}`, "PUT", data);
 
 
+export const singnInClient = async (data: UserDto) =>
+  await handleRequest<{ token: string }>(`${BASE_DEV_URL}user/login`, "POST", data);
+
+
