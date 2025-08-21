@@ -27,7 +27,7 @@ export const getAllUsers = createAsyncThunk(
     try {
       dispatch(getAllUsersLoading(true));
       const res = await getUsers();
-      return res.users;
+      return res;
     } catch (error) {
       throw new Error("Failed to fetch users");
     } finally {

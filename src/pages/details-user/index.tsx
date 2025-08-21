@@ -35,6 +35,7 @@ export const DetailsUser: React.FC = () => {
       </div>
     );
   }
+
   const handleDelete = async () => {
     await dispatch(deleteUser(String(id)));
     navigate("/users");
@@ -43,6 +44,7 @@ export const DetailsUser: React.FC = () => {
   const handleShow = () => {
     setVisible(true);
   };
+
   function handleClose(): void {
     setVisible(false);
   }
@@ -50,9 +52,9 @@ export const DetailsUser: React.FC = () => {
   return (
     <div className="flex justify-content-center">
       <div className="card w-5 mt-5 text-center">
-        <Card title={user ? `${user.firstName} ${user.lastName}` : ""}>
+        <Card title={user ? `${user.name} ${user.name}` : ""}>
           <Avatar
-            label={user ? user.firstName[0] : ""}
+            label={user ? user.name[0] : ""}
             size="large"
             style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
             shape="circle"

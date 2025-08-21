@@ -1,0 +1,76 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { AppDispatch } from "../../store/store";
+import { getAllUsers } from "../../store/users/actions";
+import { GlobalState } from "../../types/globalState";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { UsersStatistics } from "../../components/static-area";
+import { MenuBar } from "../../components/menu-bar";
+import { UserCard } from "../../components/user";
+
+const Home = () => {
+  const dispatch = useDispatch<AppDispatch>();
+<<<<<<< Updated upstream:src/pages/home/index.tsx
+<<<<<<< Updated upstream:src/pages/home/index.tsx
+
+  const { users, loading, letter, age } = useSelector(
+=======
+  const { users, loading } = useSelector(
+>>>>>>> Stashed changes:src/pages/freelancers/index.tsx
+=======
+  const { users, loading } = useSelector(
+>>>>>>> Stashed changes:src/pages/freelancers/index.tsx
+    (state: GlobalState) => state.userReducer
+  );
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+  if (loading) {
+    return (
+      <div className="flex justify-content-center">
+        <ProgressSpinner />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <UsersStatistics />
+<<<<<<< Updated upstream:src/pages/home/index.tsx
+      <UsersStatistics />
+      <MenuBar />
+      <div className="flex flex-wrap">
+<<<<<<< Updated upstream:src/pages/home/index.tsx
+        {users.length !== 0 &&
+          users
+            .filter((user) => {
+              const firstNameMatches = user.firstName
+                .toLowerCase()
+                .includes(letter.toLowerCase());
+              const lastNameMatches = user.lastName
+                .toLowerCase()
+                .includes(letter.toLowerCase());
+              const isAgeLessThanGlobalAge = user.age <= age;
+              return (
+                (firstNameMatches || lastNameMatches) && isAgeLessThanGlobalAge
+              );
+            })
+            .map((user) => <UserCard key={user.id} user={user} />)}
+=======
+        {users &&
+          users.length !== 0 &&
+          users.map((user) => <UserCard key={user.id} user={user} />)}
+>>>>>>> Stashed changes:src/pages/freelancers/index.tsx
+=======
+      <MenuBar />
+      <div className="flex flex-wrap">
+        {users &&
+          users.length !== 0 &&
+          users.map((user) => <UserCard key={user.id} user={user} />)}
+>>>>>>> Stashed changes:src/pages/freelancers/index.tsx
+      </div>
+    </>
+  );
+};
+export default Home;

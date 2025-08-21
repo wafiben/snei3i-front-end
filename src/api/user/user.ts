@@ -2,8 +2,7 @@ import { BASE_DEV_URL } from "../../config/url";
 import { UserDto } from "../../types/userDto";
 import { handleRequest } from "../http";
 
-export const getUsers = async () =>
-  await handleRequest<any>(`${BASE_DEV_URL}users`, "GET");
+
 
 export const getSingleUser = async (id: string) =>
   await handleRequest<any>(`${BASE_DEV_URL}users/${id}`, "GET");
@@ -16,5 +15,13 @@ export const addUser = async (data: UserDto) =>
 
 export const modifyUser = async (id: string, data: UserDto) =>
   await handleRequest<void>(`${BASE_DEV_URL}modify_user/${id}`, "PUT", data);
+
+
+
+export const getUsers = async () =>
+  await handleRequest<any>(`${BASE_DEV_URL}user-freelance`, "GET");
+
+export const singnInClient = async (data: UserDto) =>
+  await handleRequest<{ token: string }>(`${BASE_DEV_URL}user/login`, "POST", data);
 
 

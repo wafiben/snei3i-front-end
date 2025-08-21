@@ -27,32 +27,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllUsers.fulfilled, (state: any, action) => {
-      return {
-        ...state,
-        users: action.payload,
-        loading: false,
-      };
+    builder.addCase(getAllUsers.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.users = action.payload.users ?? action.payload;
+      state.loading = false;
     });
-
-    builder.addCase(
-      searchUsersWithFirstNameOrLastName,
-      (state: any, action: PayloadAction<string>) => {
-        return {
-          ...state,
-          letter: action.payload,
-        };
-      }
-    );
-    builder.addCase(
-      searchUsersAge,
-      (state: any, action: PayloadAction<number>) => {
-        return {
-          ...state,
-          age: action.payload,
-        };
-      }
-    );
     builder.addCase(getOneUser.fulfilled, (state: any, action) => {
       return {
         ...state,
@@ -121,6 +100,7 @@ export const userSlice = createSlice({
     builder.addCase(
       getAllUsersLoading,
       (state, action: PayloadAction<boolean>) => {
+        console.log("Loading users...");
         return {
           ...state,
           loading: true,
