@@ -9,7 +9,7 @@ import { MenuBar } from "../../components/menu-bar";
 import { UserCard } from "../../components/user";
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>();
+   const dispatch = useDispatch<AppDispatch>();
 
   const { users, loading } = useSelector(
     (state: GlobalState) => state.userReducer
@@ -24,7 +24,7 @@ const Home = () => {
         <ProgressSpinner />
       </div>
     );
-  }
+  } 
 
   return (
     <>

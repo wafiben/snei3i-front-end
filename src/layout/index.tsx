@@ -6,9 +6,9 @@ type ChildrenProps = {
 };
 export const Layout: React.FC<ChildrenProps> = ({ children }) => {
   return (
-    <div>
+    <div className="app-container">
       <Navbar />
-      {children}
+      <div className="page-content">{children}</div>
     </div>
   );
 };

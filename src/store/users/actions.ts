@@ -16,6 +16,7 @@ import {
   Delete_SINGLE_USER_LOADING,
   CREATE_SINGLE_USER_LOADING,
   MODIFY_SINGLE_USER_LOADING,
+  LOG_IN
 } from "../constants";
 import { UserDto } from "../../types/userDto";
 
@@ -122,5 +123,3 @@ export const modifySingleUser: any = createAsyncThunk(
     }
   }
 );
-
-
