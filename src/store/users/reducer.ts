@@ -10,8 +10,6 @@ import {
   getSingleUserLoading,
   modifySingleUser,
   modifyUserLoading,
-  searchUsersAge,
-  searchUsersWithFirstNameOrLastName,
 } from "./actions";
 import { UserState } from "../../types/userState";
 

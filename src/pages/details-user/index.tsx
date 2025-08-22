@@ -26,7 +26,7 @@ export const DetailsUser: React.FC = () => {
     if (id) {
       dispatch(getOneUser(id));
     }
-  }, [dispatch, id,visible]);
+  }, [dispatch, id, visible]);
 
   if (loading) {
     return (
@@ -60,31 +60,45 @@ export const DetailsUser: React.FC = () => {
             shape="circle"
           />
           <p className="m-0">
-            birthday year:
-            <strong>{user && calculateBirthYear(user.age)} </strong>
+            name: <strong>{user && user.name}</strong>
           </p>
-          <p className="m-0">
-            city :<strong>{user && user.age}</strong>
-          </p>
-          <p className="m-0">
-            city :<strong>{user && user.city}</strong>
-          </p>
+
+          {user?.services && user.services.length > 0 ? (
+            user.services.map((service, index) => (
+              <div className="m-0" key={index}>
+                <p>
+                  Service Name: <strong>{service.name}</strong>
+                </p>
+                <p>
+                  Labor Price: <strong>${service.laborPrice}</strong>
+                </p>
+                <p>
+                  Estimated Material Cost:{" "}
+                  <strong>${service.estimatedMaterialCost}</strong>
+                </p>
+                <p>
+                  Notes: <strong>{service.notes}</strong>
+                </p>
+              </div>
+            ))
+          ) : (
+            <p>No services available</p>
+          )}
+
           <div className="m-2 flex justify-content-around">
-            <Button
-              label="Delete"
-              icon="pi pi-trash"
-              className="p-button-danger p-button-outlined"
-              onClick={() => handleDelete()}
-            />
             <Button
               label="back to Home"
               severity="info"
               onClick={() => navigate("/users")}
             />
+            <Button label="pick service" severity="info" onClick={handleShow} />
           </div>
-          <Button label="Modify User" severity="info" onClick={handleShow} />
         </Card>
-        <ModifyUserModal visible={visible} handleClose={handleClose} user={user}/>
+        <ModifyUserModal
+          visible={visible}
+          handleClose={handleClose}
+          user={user}
+        />
       </div>
     </div>
   );

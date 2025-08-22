@@ -62,7 +62,7 @@ export const getOneUser = createAsyncThunk(
     try {
       dispatch(getSingleUserLoading(true));
       const res = await getSingleUser(id);
-      return res.user;
+      return res;
     } catch (error) {
       throw new Error("Failed to Get Single User.");
     } finally {

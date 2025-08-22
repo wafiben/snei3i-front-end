@@ -4,8 +4,7 @@ import { handleRequest } from "../http";
 
 
 
-export const getSingleUser = async (id: string) =>
-  await handleRequest<any>(`${BASE_DEV_URL}users/${id}`, "GET");
+
 
 export const deleteSingleUser = async (id: string) =>
   await handleRequest<void>(`${BASE_DEV_URL}delete_user/${id}`, "DELETE");
@@ -17,6 +16,8 @@ export const modifyUser = async (id: string, data: UserDto) =>
   await handleRequest<void>(`${BASE_DEV_URL}modify_user/${id}`, "PUT", data);
 
 
+export const getSingleUser = async (id: string) =>
+  await handleRequest<any>(`${BASE_DEV_URL}user-freelance/single/${id}`, "GET");
 
 export const getUsers = async () =>
   await handleRequest<any>(`${BASE_DEV_URL}user-freelance`, "GET");
