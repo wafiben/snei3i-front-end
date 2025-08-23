@@ -4,7 +4,7 @@ import {
   getUsers,
   getSingleUser,
   deleteSingleUser,
-  addUser,
+  createFreelancer,
   modifyUser,
 } from "../../api/user/user";
 import {
@@ -16,9 +16,10 @@ import {
   Delete_SINGLE_USER_LOADING,
   CREATE_SINGLE_USER_LOADING,
   MODIFY_SINGLE_USER_LOADING,
-  LOG_IN
+  LOG_IN,
 } from "../constants";
 import { UserDto } from "../../types/userDto";
+import { User } from "../../types/user";
 
 export const getAllUsersLoading: any = createAction(GET_ALL_USERS_LOADING);
 
@@ -87,16 +88,17 @@ export const deleteUser = createAsyncThunk(
 );
 
 export const createUserLoading: any = createAction(CREATE_SINGLE_USER_LOADING);
-export const createUser: any = createAsyncThunk(
+export const createUserFreelancer: any = createAsyncThunk(
   createUserLoading,
-  async (user: UserDto, { dispatch }) => {
+  async (userInfo: User, { dispatch }) => {
     try {
       dispatch(createUserLoading(true));
-      await addUser(user);
+      const id = await createFreelancer(userInfo);
+      return id;
     } catch (error) {
-      throw new Error("Failed to add .");
+      throw new Error("Failed to create ");
     } finally {
-      dispatch(deleteUserLoading(false));
+      dispatch(createUserLoading(false));
     }
   }
 );
@@ -112,7 +114,7 @@ export const modifySingleUser: any = createAsyncThunk(
         lastName: userData?.lastName,
         age: userData?.age,
         city: userData?.city,
-        gender:userData?.gender
+        gender: userData?.gender,
       };
       dispatch(modifyUserLoading(true));
       await modifyUser(userData.id, userDto);

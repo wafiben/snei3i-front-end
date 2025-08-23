@@ -1,18 +1,10 @@
-import React from "react";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { GlobalState } from "../types/globalState";
 
-interface NavbarProps {
-  isLoggedIn: boolean;
-  onLogout: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useSelector((state: GlobalState) => state.authReducer);
+  const token = localStorage.getItem("token");
 
   const items = [
     {
@@ -20,15 +12,20 @@ export const Navbar: React.FC<NavbarProps> = () => {
       icon: "pi pi-fw pi-home",
       command: () => navigate("/users"),
     },
-    {
-      label: "Add User",
-      icon: "pi pi-fw pi-user-plus",
-      command: () => navigate("/add_user"),
-    },
+    ...(token
+      ? []
+      : [
+          {
+            label: "Create account",
+            icon: "pi pi-fw pi-user-plus",
+            command: () => navigate("/create_freelancer_account"),
+          },
+        ]),
   ];
-  const onLogout = () => {
+
+  const signOut = () => {
+    window.location.href = "/";
     localStorage.removeItem("token");
-    navigate("/sign-in");
   };
 
   return (
@@ -36,12 +33,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
       <Menubar
         model={items}
         end={
-          isLoggedIn && (
+          token && (
             <Button
               label="Logout"
               icon="pi pi-sign-out"
               className="p-button-danger"
-             onClick={onLogout}
+              onClick={() => signOut()}
             />
           )
         }

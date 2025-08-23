@@ -1,46 +1,49 @@
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
-import { AutoComplete } from "primereact/autocomplete";
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../store/users/actions";
+import { createUserFreelancer } from "../../store/users/actions";
 import { useNavigate } from "react-router-dom";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { GlobalState } from "../../types/globalState";
 
-export const AddUser = () => {
-  const {  loading } = useSelector(
-    (state: GlobalState) => state.userReducer
-  );
+export const CreateAccount = () => {
+  const { loading } = useSelector((state: GlobalState) => state.userReducer);
 
-const dispatch=useDispatch()
-const navigate=useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [value, setValue] = useState("Male");
-  const [items, setItems] = useState<string[]>([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [serviceName, setServiceName] = useState("");
+  const [laborPrice, setLaborPrice] = useState("");
+  const [estimatedMaterialCost, setEstimatedMaterialCost] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [city, setCity] = useState("");
+  const handleSubmit = async () => {
+    const services = [
+      {
+        name: serviceName,
+        laborPrice: Number(laborPrice),
+        estimatedMaterialCost: Number(estimatedMaterialCost),
+        notes: notes,
+      },
+    ];
 
-  const handleSubmit = async() => {
     const userDto = {
-      firstName: firstName,
-      lastName: lastName,
-      gender: value,
-      age: parseInt(age),
-      city: city,
+      name: name,
+      email: email,
+      password: password,
+      services: services,
     };
 
-    await dispatch(createUser(userDto)); 
-    navigate('/users')
-  };
-
-
-  const search = (event: any) => {
-    let items = ["Male", "Female"];
-    setItems(items);
+    try {
+      const res = await dispatch(createUserFreelancer(userDto));
+      navigate(`/profile/${res.payload}`);
+    } catch (error) {
+      throw new Error("Failed to create user");
+    }
   };
 
   if (loading) {
@@ -55,53 +58,87 @@ const navigate=useNavigate()
     <>
       <div className="flex justify-content-center">
         <div>
+          {/* Name */}
           <div className="mt-3">
             <InputText
               type="text"
               className="p-inputtext-lg"
-              placeholder="firts name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
+          {/* Email */}
           <div className="mt-3">
             <InputText
               type="text"
               className="p-inputtext-lg"
-              placeholder="last name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
+          {/* Password */}
+          <div className="mt-3">
+            <InputText
+              type="password"
+              className="p-inputtext-lg"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <hr />
+
+          <div className="mt-3 font-bold">Services</div>
+
+          {/* Service Name */}
+          <div className="mt-3">
+            <InputText
+              type="text"
+              className="p-inputtext-lg"
+              placeholder="Service name"
+              value={serviceName}
+              onChange={(e) => setServiceName(e.target.value)}
+            />
+          </div>
+
+          {/* Labor Price */}
           <div className="mt-3">
             <InputText
               type="number"
               className="p-inputtext-lg"
-              placeholder="age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              placeholder="Labor Price"
+              value={laborPrice}
+              onChange={(e) => setLaborPrice(e.target.value)}
             />
           </div>
+
+          {/* Estimated Material Cost */}
+          <div className="mt-3">
+            <InputText
+              type="number"
+              className="p-inputtext-lg"
+              placeholder="Estimated Material Cost"
+              value={estimatedMaterialCost}
+              onChange={(e) => setEstimatedMaterialCost(e.target.value)}
+            />
+          </div>
+
+          {/* Notes */}
           <div className="mt-3">
             <InputText
               type="text"
               className="p-inputtext-lg"
-              placeholder="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              placeholder="Notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             />
           </div>
-          <div className="mt-3">
-            <AutoComplete
-              value={value}
-              suggestions={items}
-              completeMethod={search}
-              onChange={(e) => setValue(e.value)}
-              dropdown
-            />
-          </div>
+
           <div className="mt-1">
             <Button label="Send" severity="info" onClick={handleSubmit} />
           </div>
@@ -110,4 +147,3 @@ const navigate=useNavigate()
     </>
   );
 };
-

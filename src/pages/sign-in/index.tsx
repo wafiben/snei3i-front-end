@@ -1,34 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
-import { singnInClient } from "../../api/user/user";
+import { singnIn } from "../../api/user/user";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logIn } from "../../store/auth/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneUser } from "../../store/users/actions";
+import { GlobalState } from "../../types/globalState";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { AppDispatch } from "../../store/store";
 
-interface SignInProps {
-  onNavigateToSignUp: () => void;
-}
-
-export const SignIn: React.FC<SignInProps> = ({ onNavigateToSignUp }) => {
+export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch =useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const [id, setId] = useState<string | null>(null);
+
+  const { user, loading } = useSelector(
+    (state: GlobalState) => state.userReducer
+  );
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const userDate = { email, password };
     try {
-      const res = await singnInClient(userDate);
-      navigate("/users");
-      dispatch(logIn())
+      const res = await singnIn(userDate);
+      setId(res.id);
       localStorage.setItem("token", res.token);
     } catch (error) {
       throw new Error("auth failed");
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getOneUser(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (user && user.role === "CLIENT") {
+      localStorage.setItem("role", user.role);
+      navigate("/users");
+    }
+    if (user && user.role === "FREELANCER") {
+      localStorage.setItem("role", user.role);
+      navigate(`/profile/${user.id}`);
+    }
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-content-center">
+        <ProgressSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-content-center">
@@ -67,4 +95,4 @@ export const SignIn: React.FC<SignInProps> = ({ onNavigateToSignUp }) => {
       </form>
     </div>
   );
-};
+}; // <-- properly closed component
