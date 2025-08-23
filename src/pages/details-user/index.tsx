@@ -8,8 +8,7 @@ import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GlobalState } from "../../types/globalState";
-import { deleteUser, getOneUser } from "../../store/users/actions";
-import { calculateBirthYear } from "../../utils/birthdayYear";
+import { getOneUser } from "../../store/users/actions";
 import { ModifyUserModal } from "../../components/user-modify-modal";
 
 export const DetailsUser: React.FC = () => {
@@ -36,10 +35,6 @@ export const DetailsUser: React.FC = () => {
     );
   }
 
-  const handleDelete = async () => {
-    await dispatch(deleteUser(String(id)));
-    navigate("/users");
-  };
 
   const handleShow = () => {
     setVisible(true);

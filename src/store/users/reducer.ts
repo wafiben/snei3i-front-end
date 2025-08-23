@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  createUser,
+  createUserFreelancer,
   createUserLoading,
   deleteUser,
   deleteUserLoading,
@@ -15,6 +15,7 @@ import { UserState } from "../../types/userState";
 
 const initialState: UserState = {
   users: [],
+  id:null,
   loading: false,
   letter: "",
   age: 100,
@@ -63,9 +64,10 @@ export const userSlice = createSlice({
       }
     );
 
-    builder.addCase(createUser.fulfilled, (state: any, action) => {
+    builder.addCase(createUserFreelancer.fulfilled, (state: any, action) => {
       return {
         ...state,
+        id: action.payload,
         loading: false,
       };
     });
