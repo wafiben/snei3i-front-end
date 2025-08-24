@@ -40,7 +40,7 @@ export const CreateAccount = () => {
 
     try {
       const res = await dispatch(createUserFreelancer(userDto));
-      navigate(`/profile/${res.payload}`);
+      navigate(`/profile/${res.payload.id}`);
     } catch (error) {
       throw new Error("Failed to create user");
     }
