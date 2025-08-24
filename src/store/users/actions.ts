@@ -93,8 +93,8 @@ export const createUserFreelancer: any = createAsyncThunk(
   async (userInfo: User, { dispatch }) => {
     try {
       dispatch(createUserLoading(true));
-      const id = await createFreelancer(userInfo);
-      return id;
+      const response = await createFreelancer(userInfo);
+      return response?.id;
     } catch (error) {
       throw new Error("Failed to create ");
     } finally {
