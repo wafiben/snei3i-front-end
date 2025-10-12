@@ -13,6 +13,7 @@ import { ModifyUserModal } from "../../components/user-modify-modal";
 
 export const DetailsUser: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
+  
   const navigate = useNavigate();
 
   const { user, loading } = useSelector(

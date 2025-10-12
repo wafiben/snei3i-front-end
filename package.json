@@ -12,6 +12,7 @@
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
     "moment": "^2.30.1",
+    "msw": "^2.11.5",
     "primereact": "^10.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

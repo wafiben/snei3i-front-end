@@ -14,7 +14,6 @@ export const MODIFY_SINGLE_USER_LOADING: string = "MODIFY_SINGLE_USER_LOADING";
 
 export const LOG_IN: string = "LOG_IN";
 
+export const LOG_IN_LOADING: string = "LOG_IN_LOADING";
+
 export const LOG_OUT: string = "LOG_IN";
-
-
-

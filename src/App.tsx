@@ -1,7 +1,7 @@
 import { Layout } from "./layout";
 import { DetailsUser } from "./pages/details-user";
 import Home from "./pages/freelancers";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CreateAccount } from "./pages/add-user";
 import { SignIn } from "./pages/sign-in";
 import { Profile } from "./pages/freelance-profile";

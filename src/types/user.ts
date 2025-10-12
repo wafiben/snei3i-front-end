@@ -1,4 +1,3 @@
-
 export type Service = {
   name: string;
   laborPrice: number;
@@ -7,9 +6,9 @@ export type Service = {
 };
 
 export type User = {
-  id?: number; // your JSON has a number, not string
-  name: string;
-  email: string;
-  role: string;
+  id?: number;
+  name?: string;
+  email?: string;
+  role?: string;
   services?: Service[];
 };

@@ -3,11 +3,9 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { User } from "../../../types/user";
 import { GlobalState } from "../../../types/globalState";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { modifyUser } from "../../../api/user/user";
 import { modifySingleUser } from "../../../store/users/actions";
 
 export const UpdateUser = ({ user ,handleClose}: { user: User,handleClose:any }) => {
@@ -16,7 +14,6 @@ export const UpdateUser = ({ user ,handleClose}: { user: User,handleClose:any })
       );
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [value, setValue] = useState(user.gender);
   const [items, setItems] = useState<string[]>([]);
