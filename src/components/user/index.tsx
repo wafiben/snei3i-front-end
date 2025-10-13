@@ -2,8 +2,7 @@ import { Card } from "primereact/card";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types/user";
 import { Button } from "primereact/button";
-import woman from "../../assets/woman.svg";
-import man from "../../assets/man.svg";
+
 
 type PropsComponent = {
   user: User;

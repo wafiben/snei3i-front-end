@@ -1,6 +1,5 @@
 import { Dialog } from "primereact/dialog";
 import { UpdateUser } from "./update-form";
-import { User } from "../../types/user";
 
 type ModalProps = {
   handleClose: () => void;

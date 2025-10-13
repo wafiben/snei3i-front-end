@@ -15,10 +15,8 @@ import {
   GET_SINGLE_USER_LOADING,
   Delete_SINGLE_USER_LOADING,
   CREATE_SINGLE_USER_LOADING,
-  MODIFY_SINGLE_USER_LOADING,
-  LOG_IN,
+  MODIFY_SINGLE_USER_LOADING
 } from "../constants";
-import { UserDto } from "../../types/userDto";
 import { User } from "../../types/user";
 
 export const getAllUsersLoading: any = createAction(GET_ALL_USERS_LOADING);

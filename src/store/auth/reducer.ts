@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logIn } from "./actions";
 import { authState } from "../../types/authState";
+import { logIn } from "./actions";
 
 const initialState: authState = {
   isLoggedIn: false,
+  loading: false,
 };
 
 export const authSlice = createSlice({
@@ -13,8 +14,9 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(logIn.fulfilled, (state) => {
       return {
-        ...state,       // copy previous state
-        isLoggedIn: true, // update immutably
+        ...state,
+        loading: true,
+        isLoggedIn: true,
       };
     });
   },

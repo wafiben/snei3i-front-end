@@ -1,54 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
-import { singnIn } from "../../api/user/user";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneUser } from "../../store/users/actions";
 import { GlobalState } from "../../types/globalState";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { AppDispatch } from "../../store/store";
+import { logIn } from "../../store/auth/actions";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  const [id, setId] = useState<string | null>(null);
 
-  const { user, loading } = useSelector(
-    (state: GlobalState) => state.userReducer
-  );
+  const loading =
+    useSelector((state: GlobalState) => state.authReducer?.loading) || false;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const userDate = { email, password };
-    try {
-      const res = await singnIn(userDate);
-      setId(res.id);
-      localStorage.setItem("token", res.token);
-    } catch (error) {
-      throw new Error("auth failed");
-    }
+    dispatch(logIn(userDate));
   };
-
-  useEffect(() => {
-    if (id) {
-      dispatch(getOneUser(id));
-    }
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (user && user.role === "CLIENT") {
-      localStorage.setItem("role", user.role);
-      navigate("/users");
-    }
-    if (user && user.role === "FREELANCER") {
-      localStorage.setItem("role", user.role);
-      navigate(`/profile/${user.id}`);
-    }
-  }, [user]);
 
   if (loading) {
     return (
@@ -87,12 +59,12 @@ export const SignIn = () => {
           />
         </div>
         <Button
-          label="Sign In"
           type="submit"
+          label="Sign In"
           className="p-mt-3 p-button-primary"
           style={{ width: "100%" }}
         />
       </form>
     </div>
   );
-}; // <-- properly closed component
+};

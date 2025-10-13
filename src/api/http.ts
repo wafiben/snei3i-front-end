@@ -11,6 +11,7 @@ export const handleRequest = async <T>(
     body: data ? JSON.stringify(data) : null,
   };
 
+  
   const response = await fetch(url, option);
   const responseData: T = await response.json();
   return responseData;

@@ -1,9 +1,7 @@
 import { Avatar } from "primereact/avatar";
-import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GlobalState } from "../../types/globalState";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneUser } from "../../store/users/actions";
 import { ProgressSpinner } from "primereact/progressspinner";
