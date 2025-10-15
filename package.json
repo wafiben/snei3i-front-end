@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --bail",
+    "test:ci": "CI=true react-scripts test --watchAll=false --bail",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
