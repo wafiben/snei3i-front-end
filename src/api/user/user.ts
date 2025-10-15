@@ -3,7 +3,7 @@ import { User } from "../../types/user";
 import { UserDto } from "../../types/userDto";
 import { handleRequest } from "../http";
 
-export type responseSignIn = { id: string; token: string };
+export type responseSignIn = { acess_token: string };
 
 export const deleteSingleUser = async (id: string) =>
   await handleRequest<void>(`${BASE_DEV_URL}delete_user/${id}`, "DELETE");
@@ -21,7 +21,9 @@ export const getUsers = async () =>
   await handleRequest<any>(`${BASE_DEV_URL}user-freelance`, "GET");
 
 export const singnIn = async (data: UserDto) =>
+
   await handleRequest<responseSignIn>(
+    
     `${BASE_DEV_URL}user/login`,
     "POST",
     data
