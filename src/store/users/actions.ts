@@ -15,9 +15,10 @@ import {
   GET_SINGLE_USER_LOADING,
   Delete_SINGLE_USER_LOADING,
   CREATE_SINGLE_USER_LOADING,
-  MODIFY_SINGLE_USER_LOADING
+  MODIFY_SINGLE_USER_LOADING,
 } from "../constants";
 import { User } from "../../types/user";
+import { UserDto } from "../../types/userDto";
 
 export const getAllUsersLoading: any = createAction(GET_ALL_USERS_LOADING);
 
@@ -33,7 +34,7 @@ export const getAllUsers = createAsyncThunk(
     } finally {
       dispatch(getAllUsersLoading(false));
     }
-  }
+  },
 );
 
 export const searchUsersWithFirstNameOrLastName = createAction(
@@ -42,7 +43,7 @@ export const searchUsersWithFirstNameOrLastName = createAction(
     return {
       payload: data,
     };
-  }
+  },
 );
 
 export const searchUsersAge = createAction(
@@ -51,7 +52,7 @@ export const searchUsersAge = createAction(
     return {
       payload: data,
     };
-  }
+  },
 );
 
 export const getSingleUserLoading: any = createAction(GET_SINGLE_USER_LOADING);
@@ -67,7 +68,7 @@ export const getOneUser = createAsyncThunk(
     } finally {
       dispatch(getSingleUserLoading(false));
     }
-  }
+  },
 );
 
 export const deleteUserLoading: any = createAction(Delete_SINGLE_USER_LOADING);
@@ -82,7 +83,7 @@ export const deleteUser = createAsyncThunk(
     } finally {
       dispatch(deleteUserLoading(false));
     }
-  }
+  },
 );
 
 export const createUserLoading: any = createAction(CREATE_SINGLE_USER_LOADING);
@@ -98,14 +99,14 @@ export const createUserFreelancer: any = createAsyncThunk(
     } finally {
       dispatch(createUserLoading(false));
     }
-  }
+  },
 );
 
 export const modifyUserLoading: any = createAction(MODIFY_SINGLE_USER_LOADING);
 
 export const modifySingleUser: any = createAsyncThunk(
   modifyUserLoading,
-  async (userData, { dispatch }) => {
+  async (userData: UserDto, { dispatch }) => {
     try {
       const userDto = {
         firstName: userData?.firstName,
@@ -115,11 +116,11 @@ export const modifySingleUser: any = createAsyncThunk(
         gender: userData?.gender,
       };
       dispatch(modifyUserLoading(true));
-      await modifyUser(userData.id, userDto);
+      await modifyUser(userData.id!, userDto);
     } catch (error) {
       throw new Error("Failed to put .");
     } finally {
       dispatch(modifyUserLoading(false));
     }
-  }
+  },
 );
