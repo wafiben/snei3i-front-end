@@ -13,11 +13,11 @@ import { ModifyUserModal } from "../../components/user-modify-modal";
 
 export const DetailsUser: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
-  
+
   const navigate = useNavigate();
 
   const { user, loading } = useSelector(
-    (state: GlobalState) => state.userReducer
+    (state: GlobalState) => state.userReducer,
   );
 
   const { id } = useParams();
@@ -35,7 +35,6 @@ export const DetailsUser: React.FC = () => {
       </div>
     );
   }
-
 
   const handleShow = () => {
     setVisible(true);
